@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlayFuel | High-Energy Gaming Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;family=Sora:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .pixel-corners {
+            clip-path: polygon(
+                0 4px, 4px 4px, 4px 0, 
+                calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 
+                100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 
+                4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+            );
+        }
+
+        .glass-card {
+            background: rgba(36, 23, 56, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #2b1d42 0%, #190c2d 100%);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating { animation: float 6s ease-in-out infinite; }
+
+        .nav-indicator {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Sembunyikan scrollbar bawaan */
+html {
+    scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100vh;
+    background: #190c2d;
+    z-index: 9999;
+}
+
+.custom-thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 120px; /* Panjang tetap di semua halaman */
+    background: linear-gradient(180deg, #6f42c1, #8a2be2);
+    border-radius: 10px;
+    border: 2px solid #190c2d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.custom-thumb:hover {
+    background: linear-gradient(180deg, #8a2be2, #b266ff);
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+}
+
+.custom-thumb {
+    cursor: default;
+}
+
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#522300",
+                        "on-primary-container": "#c793ff",
+                        "surface-dim": "#190c2d",
+                        "error-container": "#93000a",
+                        "on-background": "#ecdcff",
+                        "outline-variant": "#4c4452",
+                        "on-secondary-fixed": "#321200",
+                        "secondary": "#ffb68b",
+                        "on-tertiary-container": "#83ba42",
+                        "secondary-container": "#ff7f1c",
+                        "primary-container": "#5a0e9d",
+                        "primary-fixed-dim": "#dbb8ff",
+                        "tertiary": "#9ed75b",
+                        "tertiary-fixed-dim": "#9ed75b",
+                        "on-tertiary": "#1e3700",
+                        "primary": "#dbb8ff",
+                        "on-primary": "#480082",
+                        "on-surface": "#ecdcff",
+                        "tertiary-fixed": "#b9f474",
+                        "error": "#ffb4ab",
+                        "inverse-primary": "#7c3cbf",
+                        "surface-variant": "#3c2e51",
+                        "inverse-surface": "#ecdcff",
+                        "on-tertiary-fixed-variant": "#2e4f00",
+                        "primary-fixed": "#efdbff",
+                        "surface-container-highest": "#3c2e51",
+                        "on-surface-variant": "#cec2d4",
+                        "surface-container-high": "#312345",
+                        "surface-bright": "#403355",
+                        "inverse-on-surface": "#372a4c",
+                        "on-primary-fixed": "#2b0052",
+                        "on-secondary-container": "#602a00",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#0f2000",
+                        "background": "#190c2d",
+                        "surface": "#190c2d",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#753400",
+                        "outline": "#978d9e",
+                        "surface-container-lowest": "#140728",
+                        "surface-container": "#26193a",
+                        "on-primary-fixed-variant": "#631da5",
+                        "tertiary-container": "#284700",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "surface-container-low": "#221536",
+                        "surface-tint": "#dbb8ff",
+                        "secondary-fixed": "#ffdbc8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "stack-sm": "4px",
+                        "gutter": "16px",
+                        "container-margin": "20px",
+                        "stack-lg": "24px",
+                        "section-gap": "48px",
+                        "stack-md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Sora"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(219,184,255,0.1)]" id="top-nav">
+<div class="flex justify-between items-center max-w-[1200px] mx-auto px-container-margin h-20 relative">
+<!-- Brand Logo -->
+<div class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary tracking-tighter">
+                PlayFuel
+            </div>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center gap-8 relative" id="nav-container">
+<!-- Indicator Bubble -->
+<div class="absolute h-8 bg-secondary-container rounded-full nav-indicator z-0" id="nav-indicator"></div>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-secondary-fixed px-4 py-1" data-active="true" href="index.html">Home</a>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-surface hover:text-primary transition-colors px-4 py-1" href="Games.html">Games</a>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-surface hover:text-primary transition-colors px-4 py-1" href="AboutUs.html">About Us</a>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-surface hover:text-primary transition-colors px-4 py-1" href="Contact.html">Contact</a>
+</div>
+</div>
+</nav>
+<script>
+        const navContainer = document.getElementById('nav-container');
+        const navIndicator = document.getElementById('nav-indicator');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        function updateIndicator(element) {
+            navIndicator.style.width = `${element.offsetWidth}px`;
+            navIndicator.style.left = `${element.offsetLeft}px`;
+        }
+
+        const activeItem = document.querySelector('[data-active="true"]');
+        if (activeItem) updateIndicator(activeItem);
+
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', () => updateIndicator(item));
+            item.addEventListener('mouseleave', () => {
+                const currentActive = document.querySelector('[data-active="true"]');
+                updateIndicator(currentActive);
+            });
+            item.addEventListener('click', () => {
+                navItems.forEach(i => {
+                    i.setAttribute('data-active', 'false');
+                    i.classList.remove('text-on-secondary-fixed');
+                    i.classList.add('text-on-surface');
+                });
+                item.setAttribute('data-active', 'true');
+                item.classList.remove('text-on-surface');
+                item.classList.add('text-on-secondary-fixed');
+                updateIndicator(item);
+            });
+        });
+</script>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[716px] flex flex-col items-center justify-center text-center px-container-margin hero-gradient overflow-hidden">
+
+<div class="relative z-10 max-w-3xl floating">
+<div class="mb-gutter inline-block">
+<img alt="PlayFuel Logo" class="h-32 md:h-40 w-auto mx-auto" src="PlayFuel Logo.png"/>
+</div>
+<h1 class="font-display-lg text-display-lg mb-stack-md text-primary">PlayFuel</h1>
+<p class="font-headline-md text-headline-md mb-stack-lg text-on-surface-variant">Fuel Up and Play.</p>
+<p class="font-body-lg text-body-lg text-outline max-w-xl mx-auto">
+                    Selamat datang di PlayFuel! Platform gaming terpercaya untuk top up dan jual beli akun game favoritmu. Nikmati transaksi yang cepat, aman, dan praktis untuk mendukung setiap petualangan dan kemenanganmu.
+                </p>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background to-transparent"></div>
+</section>
+<!-- Promo Banner -->
+<section class="max-w-[1200px] mx-auto px-container-margin py-section-gap">
+<div class="relative w-full aspect-[21/9] md:aspect-[3/1] rounded-xl overflow-hidden glass-card group cursor-pointer border-2 border-primary/20 hover:border-secondary-container transition-all duration-500">
+<img class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic gaming landscape scene celebrating a 1-year anniversary with neon orange and purple lighting. The atmosphere is explosive and celebratory with digital particle effects, floating geometric crystals, and sharp futuristic architecture. The lighting is high-contrast with intense glows from orange banners and purple energy fields, creating a professional e-sports tournament aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1Bb4gTofLS4h_OZBX9H8sEg8F1PnXsWyeISXahgynAFaZCUutVELsTmwKukx2fwRASvZpqXYXzfP4yVlOzB1tifIe7z7wWt3x0wJD0DA7kSEBhemJlLtVgThIhP3bJVy-iFP7CfxPgEJoyGetHscmoDaZVE5Z0Fw89ydfiaLEZJ4kfBJkfuCVHsmJ5ThFTTdypeE04XRuafaEajHrFTD5cxX7Mj2F5YInFcrpgJ3c1f5PM37Cy8qHBb2DSt9yIZZoEARcbfxNxjB-"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent flex flex-col justify-center px-stack-lg md:px-16">
+<div class="inline-block px-3 py-1 bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm pixel-corners mb-stack-md w-fit">
+                        GRAND OPENING EVENT
+                    </div>
+<h2 class="font-headline-lg text-headline-lg text-white mb-stack-sm">🚀 GRAND OPENING PLAYFUEL</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Selamat datang di PlayFuel! Rayakan grand opening bersama kami dan dapatkan promo spesial untuk top up game favoritmu. Cepat, aman, dan terpercaya untuk semua kebutuhan gamingmu.</p>
+<a href="Games.html"
+   class="inline-flex items-center gap-2 mt-6 font-bold text-white hover:text-primary transition-all duration-300">
+    TOP UP SEKARANG!
+    <span class="material-symbols-outlined text-[20px]">
+        arrow_forward
+    </span>
+</a>
+</div>
+</div>
+</section>
+<!-- Popular Games -->
+<section class="max-w-[1200px] mx-auto px-container-margin py-section-gap">
+<div class="flex items-center justify-between mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg border-l-4 border-secondary-container pl-4">Popular Games</h2>
+<a href="Games.html"
+   class="font-label-md text-label-md text-secondary hover:text-primary transition-colors duration-300 flex items-center gap-1">
+    VIEW ALL MARKETPLACE
+    <span class="material-symbols-outlined text-[18px]">
+        arrow_forward
+    </span>
+</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-gutter">
+<!-- Game Card Component (Repeated 6x) -->
+<a class="group cursor-pointer block" href="Valorant.html">
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden glass-card border border-white/5 group-hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A tactical shooter character portrait in a high-contrast futuristic urban setting with vibrant neon accents. The style is sharp and competitive, focusing on Valorant's characteristic clean art style with purple and orange secondary lighting. The character looks determined against a background of digital map blueprints." src="images/Valorant.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="font-label-md text-label-md text-white">Valorant</p>
+</div>
+</div>
+</a>
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden glass-card border border-white/5 group-hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-fantasy MOBA arena battle scene with legendary heroes clashing in a forest environment. The lighting is magical and saturated, dominated by deep purples and emerald greens. Cinematic particle effects of magic spells fill the air, creating a sense of intense competitive mobile gaming action." src="images/mlbb.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="font-label-md text-label-md text-white">Mobile Legends: Bang Bang</p>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden glass-card border border-white/5 group-hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A rugged battle royale soldier in tactical gear crouched in a desolate wasteland at dusk. The lighting is moody and warm, with a golden hour glow highlighting the dusty environment. Sharp details on the gear and a sense of survival tension define this PUBG-inspired high-fidelity digital illustration." src="images/pubgm.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="font-label-md text-label-md text-white">PUBG Mobile</p>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden glass-card border border-white/5 group-hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A stylized survivor standing on a tropical island peak with a sunset background. The visual style is vibrant and high-saturation, with strong orange and teal color grading. Dramatic lighting outlines the character's silhouette, capturing the fast-paced action and colorful world of Free Fire." src="images/freefire.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="font-label-md text-label-md text-white">Free Fire</p>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden glass-card border border-white/5 group-hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional football player mid-sprint on a pristine grass field under stadium floodlights. The scene is hyper-realistic with sharp focus on the ball and the grass texture. The lighting is bright and atmospheric, capturing the high-energy vibe of a world-class sports simulation game like FC Mobile." src="images/fcmobile.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="font-label-md text-label-md text-white">FC Mobile</p>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden glass-card border border-white/5 group-hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A wide angle shot of a massive modern football stadium at night, packed with cheering fans and lit by intense blue and white spotlighting. The aesthetic is clean and corporate yet exciting, representing the grand scale and competitive spirit of professional e-sports football leagues." src="images/efootball.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="font-label-md text-label-md text-white">EFootball</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why PlayFuel -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-[1200px] mx-auto px-container-margin">
+<div class="text-center mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">Pilihan Utama Para Gamer</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Dirancang untuk para gamer yang mengutamakan kecepatan, keamanan, dan kenyamanan dalam setiap transaksi.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="glass-card p-stack-lg rounded-xl text-center group hover:-translate-y-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<h3 class="font-headline-md text-headline-md mb-2">Transaksi Aman</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Setiap transaksi dilindungi dengan sistem keamanan terpercaya untuk menjaga data dan akunmu tetap aman.</p>
+</div>
+<div class="glass-card p-stack-lg rounded-xl text-center group hover:-translate-y-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<h3 class="font-headline-md text-headline-md mb-2">Proses Cepat</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Top up dan transaksi diproses secara instan agar kamu bisa langsung kembali bermain.</p>
+</div>
+<div class="glass-card p-stack-lg rounded-xl text-center group hover:-translate-y-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">payments</span>
+<h3 class="font-headline-md text-headline-md mb-2">Harga Transparan</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Harga yang tertera adalah harga yang kamu bayar, tanpa biaya tersembunyi.</p>
+</div>
+<div class="glass-card p-stack-lg rounded-xl text-center group hover:-translate-y-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<h3 class="font-headline-md text-headline-md mb-2">Dukungan Responsif</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Tim kami siap membantu dengan layanan pelanggan yang ramah dan responsif setiap hari.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Statistics & Trust -->
+<section class="max-w-[1200px] mx-auto px-container-margin py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter text-center">
+<div class="p-stack-lg">
+<p class="font-display-lg text-display-lg text-secondary mb-2">99.9%</p>
+<p class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Dipercaya oleh Para Gamer</p>
+</div>
+<div class="p-stack-lg border-x border-white/5">
+<p class="font-display-lg text-display-lg text-secondary mb-2">500K+</p>
+<p class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Gamer Aktif Bergabung</p>
+</div>
+<div class="p-stack-lg">
+<p class="font-display-lg text-display-lg text-secondary mb-2">4.9/5</p>
+<p class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Tingkat Kepuasan Pelanggan</p>
+</div>
+</div>
+</section>
+<!-- Usage Guide (Tabbed) -->
+<section class="max-w-[800px] mx-auto px-container-margin py-section-gap">
+<div class="text-center mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg mb-2">Getting Started</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">New to PlayFuel? Follow these simple steps.</p>
+</div>
+<div class="bg-surface-container rounded-xl overflow-hidden border border-white/5">
+<div class="flex border-b border-white/10" id="guide-tabs">
+<button class="tab-btn flex-1 py-4 font-label-md text-label-md text-secondary border-b-2 border-secondary bg-surface-bright/20" onclick="switchTab(0)">How to Top Up</button>
+<button class="tab-btn flex-1 py-4 font-label-md text-label-md text-on-surface-variant hover:bg-surface-bright/10 transition-colors" onclick="switchTab(1)">How to Buy Account</button>
+<button class="tab-btn flex-1 py-4 font-label-md text-label-md text-on-surface-variant hover:bg-surface-bright/10 transition-colors" onclick="switchTab(2)">How to Sell Account</button>
+</div>
+<div class="p-stack-lg">
+<div class="space-y-gutter" id="tab-content">
+<!-- Content injected by JS -->
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="max-w-[1200px] mx-auto px-container-margin py-section-gap overflow-hidden">
+<h2 class="font-headline-lg text-headline-lg text-center mb-stack-lg">Ulasan Gamer</h2>
+<div class="flex gap-gutter overflow-x-auto pb-8 snap-x no-scrollbar">
+<!-- Testimonial Card -->
+<div class="min-w-[300px] md:min-w-[400px] glass-card p-stack-lg rounded-xl snap-center">
+<div class="flex gap-1 mb-stack-md">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md italic mb-stack-lg">"Layanan top up tercepat yang pernah saya gunakan. Valorant Point saya langsung masuk sesaat setelah pembayaran. Pelayanannya benar-benar memuaskan!"</p>
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-bold">JD</div>
+<div>
+<p class="font-label-md text-label-md">JungleDiff_Main</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Verified Buyer</p>
+</div>
+</div>
+</div>
+<div class="min-w-[300px] md:min-w-[400px] glass-card p-stack-lg rounded-xl snap-center">
+<div class="flex gap-1 mb-stack-md">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md italic mb-stack-lg">"Saya menjual akun FC Mobile lama saya di sini. Proses transaksinya terasa aman dan dana saya diterima dalam waktu kurang dari 24 jam."</p>
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold">AK</div>
+<div>
+<p class="font-label-md text-label-md">AlexKing</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Verified Seller</p>
+</div>
+</div>
+</div>
+<div class="min-w-[300px] md:min-w-[400px] glass-card p-stack-lg rounded-xl snap-center">
+<div class="flex gap-1 mb-stack-md">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<p class="font-body-md text-body-md italic mb-stack-lg">"Tim dukungan membantuku memulihkan transaksi yang gagal malam hari. Sangat berterima kasih atas respons cepat mereka."</p>
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center font-bold">MS</div>
+<div>
+<p class="font-label-md text-label-md">MistyStep</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Verified Buyer</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section class="max-w-[800px] mx-auto px-container-margin py-section-gap">
+<h2 class="font-headline-lg text-headline-lg text-center mb-stack-lg">Pertanyaan yang Sering Diajukan</h2>
+<div class="space-y-stack-md">
+<details class="group glass-card rounded-xl">
+<summary class="flex items-center justify-between p-stack-lg cursor-pointer list-none">
+<span class="font-body-lg text-body-lg">Apakah aman melakukan top up di PlayFuel?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-stack-lg pb-stack-lg text-on-surface-variant">
+                        Tentu saja. PlayFuel menggunakan metode pembayaran yang aman dan proses transaksi yang terpercaya untuk memastikan setiap top up berjalan lancar. Kami berkomitmen memberikan pengalaman top up yang cepat, aman, dan nyaman sehingga kamu bisa bermain tanpa khawatir.
+                    </div>
+</details>
+<details class="group glass-card rounded-xl">
+<summary class="flex items-center justify-between p-stack-lg cursor-pointer list-none">
+<span class="font-body-lg text-body-lg">Berapa lama waktu pengiriman?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-stack-lg pb-stack-lg text-on-surface-variant">
+                        95% pesanan kami diproses dan dikirim dalam waktu kurang dari 60 detik setelah pembayaran terkonfirmasi. Untuk transaksi jual beli akun, proses transfer akun dapat memerlukan waktu hingga 24 jam demi memastikan keamanan dan kelancaran transaksi.
+                    </div>
+</details>
+<details class="group glass-card rounded-xl">
+<summary class="flex items-center justify-between p-stack-lg cursor-pointer list-none">
+<span class="font-body-lg text-body-lg">Apa yang terjadi jika pesanan saya gagal?</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-stack-lg pb-stack-lg text-on-surface-variant">
+                        Jika sebuah pesanan gagal, sistem kami secara otomatis akan memicu pengembalian dana atau percobaan ulang. Anda juga dapat menghubungi tim dukungan 24/7 kami secara instan melalui dashboard.
+                    </div>
+</details>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant w-full pt-section-gap pb-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-[1200px] mx-auto px-container-margin text-center md:text-center items-center">
+<div class="flex flex-col gap-stack-md items-center">
+<div class="font-headline-md text-headline-md font-bold text-primary">PlayFuel</div>
+<p class="text-on-surface-variant text-body-md">Marketplace gaming terpercaya untuk semua kebutuhan digital gamer Indonesia. Cepat, aman, dan transparan.</p>
+</div>
+<div class="flex flex-col gap-stack-md items-center">
+<h4 class="text-on-surface font-bold">Quick Links</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-secondary font-bold transition-transform hover:translate-x-1 font-label-sm" href="index.html">
+    Home
+</a>
+
+<a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm" href="Games.html">
+    Games
+</a>
+<a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm" href="AboutUs.html">About Us</a>
+<a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm" href="Contact.html">Contact</a>
+</nav>
+</div>
+<div class="flex flex-col gap-stack-md items-center">
+<h4 class="text-on-surface font-bold">Legal</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm" href="#">Refund Policy</a>
+</nav>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto px-container-margin mt-stack-lg pt-stack-lg border-t border-white/5 text-center text-on-surface-variant font-label-sm">
+            © 2026 PlayFuel. All rights reserved.
+        </div>
+</footer>
+<script>
+        // Tab Logic for Usage Guide
+        const tabData = [
+            {
+                title: "How to Top Up",
+                steps: [
+                    "Pilih game yang ingin kamu top up dari menu Popular Games atau halaman Games.",
+                    "Tentukan nominal atau item top up yang diinginkan (misalnya Diamond, UC, VP, dan lainnya).",
+                    "Masukkan Player ID (dan Zone ID/Server ID jika game kamu membutuhkannya) dengan teliti.",
+                    "Pilih metode pembayaran yang tersedia, seperti QRIS, E-Wallet, atau Transfer Bank.",
+                    "Selesaikan pembayaran, lalu item top up akan otomatis masuk ke akun game kamu dalam hitungan detik."
+                ]
+            },
+            {
+                title: "How to Buy Account",
+                steps: [
+                    "Browse the Accounts category for your game.",
+                    "Filter by rank, skins, or win rate.",
+                    "Review seller verification badges and ratings.",
+                    "Click Purchase; funds are held in escrow.",
+                    "Receive login credentials and confirm delivery to release funds."
+                ]
+            },
+            {
+                title: "How to Sell Account",
+                steps: [
+                    "Apply for a 'Verified Seller' badge in your profile.",
+                    "List your account with screenshots and detailed stats.",
+                    "Wait for a buyer to initiate an escrow purchase.",
+                    "Hand over account details via our secure chat.",
+                    "Receive payout to your registered bank/e-wallet."
+                ]
+            }
+        ];
+
+        const tabContentEl = document.getElementById('tab-content');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+
+        function switchTab(index) {
+            // Update UI
+            tabButtons.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('text-secondary', 'border-secondary', 'bg-surface-bright/20');
+                    btn.classList.remove('text-on-surface-variant');
+                } else {
+                    btn.classList.remove('text-secondary', 'border-secondary', 'bg-surface-bright/20');
+                    btn.classList.add('text-on-surface-variant');
+                }
+            });
+
+            // Update Content
+            const data = tabData[index];
+            tabContentEl.innerHTML = data.steps.map((step, i) => `
+                <div class="flex gap-gutter items-start group">
+                    <div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed flex-shrink-0 flex items-center justify-center font-bold text-sm">
+                        ${i + 1}
+                    </div>
+                    <div class="pt-1">
+                        <p class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">${step}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize first tab
+        switchTab(0);g
+    </script>
+    <div class="custom-scrollbar">
+    <div class="custom-thumb" id="customThumb"></div>
+</div>
+<script>
+const thumb = document.getElementById('customThumb');
+let isDragging = false;
+let startY = 0;
+let startTop = 0;
+
+function updateScrollbar() {
+    if (isDragging) return;
+
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const trackHeight = window.innerHeight - thumb.offsetHeight;
+
+    const thumbTop = docHeight > 0
+        ? (scrollTop / docHeight) * trackHeight
+        : 0;
+
+    thumb.style.top = `${thumbTop}px`;
+}
+
+thumb.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    startTop = thumb.offsetTop;
+
+    e.preventDefault();
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const trackHeight = window.innerHeight - thumb.offsetHeight;
+
+    let thumbTop = startTop + (e.clientY - startY);
+
+    thumbTop = Math.max(0, Math.min(trackHeight, thumbTop));
+
+    thumb.style.top = `${thumbTop}px`;
+
+    const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+    window.scrollTo(
+        0,
+        (thumbTop / trackHeight) * docHeight
+    );
+});
+
+window.addEventListener('scroll', updateScrollbar);
+window.addEventListener('resize', updateScrollbar);
+
+updateScrollbar();
+</script>
+</body>
+</html>

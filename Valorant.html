@@ -1,0 +1,1008 @@
+
+
+
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PlayFuel - Valorant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&family=Sora:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .nav-indicator {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pixel-border {
+            clip-path: polygon(
+                0 4px, 4px 4px, 4px 0,
+                calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+                100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+                4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+            );
+        }
+        .glass-card {
+            background: rgba(36, 23, 56, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .vibration-hover:hover {
+            animation: vibrate 0.2s linear infinite;
+        }
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Sembunyikan scrollbar bawaan */
+html {
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100vh;
+    background: #190c2d;
+    z-index: 9999;
+}
+
+.custom-thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 120px; /* Panjang tetap di semua halaman */
+    background: linear-gradient(180deg, #6f42c1, #8a2be2);
+    border-radius: 10px;
+    border: 2px solid #190c2d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.custom-thumb:hover {
+    background: linear-gradient(180deg, #8a2be2, #b266ff);
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+}
+
+.custom-thumb {
+    cursor: default;
+}
+
+.payment-btn {
+    background: #26193a;
+    border: 1px solid #4c4452;
+    border-radius: 12px;
+    padding: 14px;
+    color: #ecdcff;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.payment-btn:hover {
+    border-color: #dbb8ff;
+    background: #312345;
+}
+
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#522300",
+                        "on-primary-container": "#c793ff",
+                        "surface-dim": "#190c2d",
+                        "error-container": "#93000a",
+                        "on-background": "#ecdcff",
+                        "outline-variant": "#4c4452",
+                        "on-secondary-fixed": "#321200",
+                        "secondary": "#ffb68b",
+                        "on-tertiary-container": "#83ba42",
+                        "secondary-container": "#ff7f1c",
+                        "primary-container": "#5a0e9d",
+                        "primary-fixed-dim": "#dbb8ff",
+                        "tertiary": "#9ed75b",
+                        "tertiary-fixed-dim": "#9ed75b",
+                        "on-tertiary": "#1e3700",
+                        "primary": "#dbb8ff",
+                        "on-primary": "#480082",
+                        "on-surface": "#ecdcff",
+                        "tertiary-fixed": "#b9f474",
+                        "error": "#ffb4ab",
+                        "inverse-primary": "#7c3cbf",
+                        "surface-variant": "#3c2e51",
+                        "inverse-surface": "#ecdcff",
+                        "on-tertiary-fixed-variant": "#2e4f00",
+                        "primary-fixed": "#efdbff",
+                        "surface-container-highest": "#3c2e51",
+                        "on-surface-variant": "#cec2d4",
+                        "surface-container-high": "#312345",
+                        "surface-bright": "#403355",
+                        "inverse-on-surface": "#372a4c",
+                        "on-primary-fixed": "#2b0052",
+                        "on-secondary-container": "#602a00",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#0f2000",
+                        "background": "#190c2d",
+                        "surface": "#190c2d",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#753400",
+                        "outline": "#978d9e",
+                        "surface-container-lowest": "#140728",
+                        "surface-container": "#26193a",
+                        "on-primary-fixed-variant": "#631da5",
+                        "tertiary-container": "#284700",
+                        "secondary-fixed-dim": "#ffb68b",
+                        "surface-container-low": "#221536",
+                        "surface-tint": "#dbb8ff",
+                        "secondary-fixed": "#ffdbc8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "stack-sm": "4px",
+                        "gutter": "16px",
+                        "container-margin": "20px",
+                        "stack-lg": "24px",
+                        "section-gap": "48px",
+                        "stack-md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Sora"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(219,184,255,0.1)]" id="top-nav">
+<div class="flex justify-between items-center max-w-[1200px] mx-auto px-container-margin h-20 relative">
+<!-- Brand Logo -->
+<div class="font-display-lg text-display-lg font-extrabold text-primary dark:text-primary tracking-tighter">
+                PlayFuel
+            </div>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center gap-8 relative" id="nav-container">
+<!-- Indicator Bubble -->
+<div class="absolute h-8 bg-secondary-container rounded-full nav-indicator z-0" id="nav-indicator"></div>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-surface hover:text-primary transition-colors px-4 py-1" href="index.html">Home</a>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-secondary-fixed px-4 py-1" data-active="true" href="Games.html">Games</a>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-surface hover:text-primary transition-colors px-4 py-1" href="AboutUs.html">About Us</a>
+<a class="nav-item relative z-10 font-label-md text-label-md text-on-surface hover:text-primary transition-colors px-4 py-1" href="Contact.html">Contact</a>
+</div>
+</div>
+</div>
+</nav>
+<script>
+        const navContainer = document.getElementById('nav-container');
+        const navIndicator = document.getElementById('nav-indicator');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        function updateIndicator(element) {
+            navIndicator.style.width = `${element.offsetWidth}px`;
+            navIndicator.style.left = `${element.offsetLeft}px`;
+        }
+
+        const activeItem = document.querySelector('[data-active="true"]');
+        if (activeItem) updateIndicator(activeItem);
+
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', () => updateIndicator(item));
+            item.addEventListener('mouseleave', () => {
+                const currentActive = document.querySelector('[data-active="true"]');
+                updateIndicator(currentActive);
+            });
+            item.addEventListener('click', () => {
+                navItems.forEach(i => {
+                    i.setAttribute('data-active', 'false');
+                    i.classList.remove('text-on-secondary-fixed');
+                    i.classList.add('text-on-surface');
+                });
+                item.setAttribute('data-active', 'true');
+                item.classList.remove('text-on-surface');
+                item.classList.add('text-on-secondary-fixed');
+                updateIndicator(item);
+            });
+        });
+</script>
+<main class="pt-20">
+<!-- Game Hero Section -->
+<section class="relative h-[614px] min-h-[400px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-10"></div>
+<img alt="Valorant Gameplay" class="w-full h-full object-cover" data-alt="A cinematic wide-shot of a high-action Valorant gameplay scene featuring Jett and Phoenix casting vibrant abilities in the futuristic city of Haven. The lighting is dramatic and high-contrast, with neon oranges and deep purples reflecting off glass surfaces. The mood is intense and competitive, captured in a clean, modern digital art style with sharp details and atmospheric fog." src="images/Valorant5.jpg"/>
+<div class="absolute inset-0 z-20 flex items-end">
+<div class="max-w-[1200px] mx-auto w-full px-container-margin pb-section-gap">
+<div class="flex flex-col md:flex-row items-center md:items-end gap-gutter">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-xl overflow-hidden border-4 border-secondary-container shadow-xl glass-card">
+<img alt="Valorant Icon" class="w-full h-full object-cover" data-alt="A high-resolution studio shot of the Valorant tactical shooter logo against a dark, textured background. The icon is rendered with a 3D glass effect, catching light from a hidden orange source. The aesthetic is clean and professional, matching a high-end esports branding style with subtle metallic finishes." src="images/Valorant3.jpg"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h1 class="font-display-lg text-display-lg text-white mb-2 uppercase tracking-tight">VALORANT</h1>
+<div class="flex flex-wrap justify-center md:justify-start gap-stack-md">
+<span class="bg-secondary-container/20 text-secondary px-3 py-1 rounded-lg border border-secondary/30 flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">bolt</span> Top Up
+                                </span>
+<span class="bg-primary-container/20 text-primary px-3 py-1 rounded-lg border border-primary/30 flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">shopping_bag</span> Marketplace
+                                </span>
+<span class="bg-tertiary-container/20 text-tertiary px-3 py-1 rounded-lg border border-tertiary/30 flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">verified_user</span> Verified
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Service & Content Grid -->
+<section class="max-w-[1200px] mx-auto px-container-margin -mt-12 relative z-30 pb-section-gap">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Sidebar Tabs -->
+<aside class="lg:col-span-3">
+<div class="glass-card rounded-xl p-stack-md space-y-2 sticky top-24">
+<button class="tab-btn w-full flex items-center gap-stack-md px-4 py-3 rounded-lg bg-secondary-container text-on-secondary-fixed transition-all duration-300 font-bold group" id="tab-top-up" onclick="switchTab('top-up')">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">payments</span>
+<span class="font-label-md">Top Up</span>
+</button>
+<button class="tab-btn w-full flex items-center gap-stack-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all font-bold group" id="tab-beli-akun" onclick="switchTab('beli-akun')">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">person_search</span>
+<span class="font-label-md">Beli Akun</span>
+</button>
+<button class="tab-btn w-full flex items-center gap-stack-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all font-bold group" id="tab-jual-akun" onclick="switchTab('jual-akun')">
+<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">sell</span>
+<span class="font-label-md">Jual Akun</span>
+</button>
+</div>
+</aside>
+<!-- Dynamic Content Area -->
+<div class="lg:col-span-9">
+<!-- Top Up Tab Content -->
+<div class="tab-content space-y-gutter" id="content-top-up">
+
+    <!-- 1. Enter Riot Details -->
+    <div class="glass-card rounded-xl p-stack-lg">
+        <h2 class="font-headline-md text-headline-md mb-gutter text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">badge</span>
+            1. Enter Riot Details
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+            <div class="space-y-stack-sm">
+                <label class="font-label-md text-label-md text-on-surface-variant px-1">Riot ID</label>
+                <input id="riotId" type="text" placeholder="Contoh: PlayFuel"
+                       oninput="updateSummary()"
+                       class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3 text-white">
+            </div>
+            <div class="space-y-stack-sm">
+                <label class="font-label-md text-label-md text-on-surface-variant px-1">Tagline</label>
+                <input id="riotTag" type="text" placeholder="Contoh: SEA"
+                       oninput="updateSummary()"
+                       class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3 text-white">
+            </div>
+        </div>
+        <p class="font-label-sm text-label-sm text-on-surface-variant/70 mt-stack-md flex items-start gap-2">
+            <span class="material-symbols-outlined text-[16px] mt-0.5 text-secondary">info</span>
+            Masukkan Riot ID dan Tagline dengan benar. VP yang telah dikirim tidak dapat dipindahkan ke akun lain.
+        </p>
+    </div>
+
+    <!-- 2. Select Valorant Points -->
+    <div class="glass-card rounded-xl p-stack-lg">
+        <h2 class="font-headline-md text-headline-md mb-gutter text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">token</span>
+            2. Select Valorant Points
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 475, 75000)">
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">475 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 75.000</span>
+                </div>
+            </div>
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 1000, 150000)">
+                <span class="absolute top-2 left-2 font-label-sm text-label-sm text-secondary bg-secondary/10 px-2 rounded">POPULER</span>
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">1.000 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 150.000</span>
+                </div>
+            </div>
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 1475, 220000)">
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">1.475 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 220.000</span>
+                </div>
+            </div>
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 2050, 300000)">
+                <span class="absolute top-2 left-2 font-label-sm text-label-sm text-tertiary bg-tertiary/10 px-2 rounded">BEST VALUE</span>
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">2.050 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 300.000</span>
+                </div>
+            </div>
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 3650, 520000)">
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">3.650 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 520.000</span>
+                </div>
+            </div>
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 5350, 750000)">
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">5.350 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 750.000</span>
+                </div>
+            </div>
+
+            <div class="vp-card relative cursor-pointer border-2 border-transparent rounded-xl p-stack-md bg-surface-container transition-all duration-300 hover:-translate-y-1"
+                 onclick="selectVP(this, 11000, 1500000)">
+                <span class="vp-check hidden absolute top-2 right-2 material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+                <div class="flex flex-col items-center py-stack-lg">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-2">token</span>
+                    <span class="font-headline-md text-headline-md text-white">11.000 VP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Instant Delivery</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5 text-center">
+                    <span class="font-label-md text-label-md text-secondary-fixed">Rp 1.500.000</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 3. Promo Code -->
+    <div class="glass-card rounded-xl p-stack-lg">
+        <h2 class="font-headline-md text-headline-md mb-gutter text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">local_offer</span>
+            3. Promo Code
+            <span class="text-label-sm font-label-sm text-on-surface-variant/50 font-normal">(Opsional)</span>
+        </h2>
+        <div class="flex flex-col sm:flex-row gap-stack-md">
+            <input id="promoInput" type="text" placeholder="Masukkan kode promo jika ada"
+                   class="flex-1 bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3 text-white">
+            <button onclick="applyPromo()"
+                    class="bg-primary-container text-primary px-6 py-3 rounded-lg font-bold hover:bg-primary-container/70 transition-all whitespace-nowrap">
+                Apply
+            </button>
+        </div>
+        <p id="promoMsg" class="hidden text-label-sm font-label-sm mt-stack-sm"></p>
+    </div>
+
+    <!-- 4. Payment Method -->
+    <div class="glass-card rounded-xl p-stack-lg">
+        <h2 class="font-headline-md text-headline-md mb-gutter text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">credit_card</span>
+            4. Payment Method
+        </h2>
+        <div class="space-y-gutter">
+            <div>
+                <h3 class="font-label-md text-label-md text-on-surface-variant mb-stack-sm uppercase tracking-wide">E-Wallet</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-stack-md">
+                    <button class="payment-btn" onclick="selectPayment(this, 'QRIS')">QRIS</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'DANA')">DANA</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'OVO')">OVO</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'GoPay')">GoPay</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'ShopeePay')">ShopeePay</button>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-label-md text-label-md text-on-surface-variant mb-stack-sm uppercase tracking-wide">Virtual Account</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-stack-md">
+                    <button class="payment-btn" onclick="selectPayment(this, 'BCA VA')">BCA VA</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'Mandiri VA')">Mandiri VA</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'BRI VA')">BRI VA</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'BNI VA')">BNI VA</button>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-label-md text-label-md text-on-surface-variant mb-stack-sm uppercase tracking-wide">Retail</h3>
+                <div class="grid grid-cols-2 gap-stack-md">
+                    <button class="payment-btn" onclick="selectPayment(this, 'Alfamart')">Alfamart</button>
+                    <button class="payment-btn" onclick="selectPayment(this, 'Indomaret')">Indomaret</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Contact Details -->
+    <div class="glass-card rounded-xl p-stack-lg">
+        <h2 class="font-headline-md text-headline-md mb-gutter text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">contact_mail</span>
+            5. Contact Details
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+            <div class="space-y-stack-sm">
+                <label class="font-label-md text-label-md text-on-surface-variant px-1">Email Address</label>
+                <input id="contactEmail" type="email" placeholder="nama@email.com"
+                       oninput="updateSummary()"
+                       class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3 text-white">
+            </div>
+            <div class="space-y-stack-sm">
+                <label class="font-label-md text-label-md text-on-surface-variant px-1">Nomor WhatsApp</label>
+                <input id="contactWA" type="tel" placeholder="08xxxxxxxxxx"
+                       oninput="updateSummary()"
+                       class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3 text-white">
+            </div>
+        </div>
+        <p class="font-label-sm text-label-sm text-on-surface-variant/70 mt-stack-md flex items-start gap-2">
+            <span class="material-symbols-outlined text-[16px] mt-0.5 text-secondary">info</span>
+            Kami akan menghubungi Anda melalui WhatsApp atau Email apabila terjadi kendala pada pesanan.
+        </p>
+    </div>
+
+    <!-- 6. Order Summary -->
+    <div class="glass-card rounded-xl p-stack-lg border border-secondary-container/40">
+        <h2 class="font-headline-md text-headline-md mb-gutter text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">receipt_long</span>
+            6. Order Summary
+        </h2>
+        <div class="space-y-stack-sm text-body-md">
+            <div class="flex justify-between"><span class="text-on-surface-variant">Game</span><span class="text-white font-bold">Valorant</span></div>
+            <div class="flex justify-between"><span class="text-on-surface-variant">Riot ID</span><span id="sum-riotid" class="text-white">-</span></div>
+            <div class="flex justify-between"><span class="text-on-surface-variant">Tagline</span><span id="sum-tagline" class="text-white">-</span></div>
+            <div class="flex justify-between"><span class="text-on-surface-variant">Produk</span><span id="sum-product" class="text-white">-</span></div>
+            <div class="flex justify-between"><span class="text-on-surface-variant">Harga Produk</span><span id="sum-price" class="text-white">Rp 0</span></div>
+            <div class="flex justify-between"><span class="text-on-surface-variant">Metode Pembayaran</span><span id="sum-payment" class="text-white">-</span></div>
+            <div class="flex justify-between"><span class="text-on-surface-variant">Diskon Promo</span><span id="sum-discount" class="text-tertiary">Rp 0</span></div>
+            <div class="flex justify-between pt-stack-md mt-stack-sm border-t border-white/10">
+                <span class="font-headline-md text-headline-md text-on-surface font-bold">Total Pembayaran</span>
+                <span id="sum-total" class="font-headline-md text-headline-md text-secondary font-bold">Rp 0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Agreement Checkbox -->
+    <div class="glass-card rounded-xl p-stack-lg space-y-stack-md">
+        <label class="flex items-start gap-stack-md cursor-pointer">
+            <input id="agree1" type="checkbox" onchange="updateSummary()"
+                   class="mt-1 w-5 h-5 rounded border-outline-variant bg-surface-container-lowest text-secondary-container focus:ring-secondary-container">
+            <span class="text-body-md text-on-surface-variant">Saya telah memastikan Riot ID dan Tagline sudah benar.</span>
+        </label>
+        <label class="flex items-start gap-stack-md cursor-pointer">
+            <input id="agree2" type="checkbox" onchange="updateSummary()"
+                   class="mt-1 w-5 h-5 rounded border-outline-variant bg-surface-container-lowest text-secondary-container focus:ring-secondary-container">
+            <span class="text-body-md text-on-surface-variant">Saya menyetujui <a href="#" class="text-primary hover:underline">Terms of Service</a> dan <a href="#" class="text-primary hover:underline">Privacy Policy</a>.</span>
+        </label>
+    </div>
+
+    <!-- 8. Buy Now Button -->
+    <button id="buyNowBtn" onclick="handleBuyNow()" disabled
+            class="w-full bg-secondary-container text-on-secondary py-4 rounded-xl font-bold text-headline-md font-headline-md transition-all duration-300 hover:scale-[1.02] opacity-40 cursor-not-allowed flex items-center justify-center gap-2">
+        Buy Now
+    </button>
+
+</div>
+
+<script>
+    let selectedVP = null;
+    let selectedPayment = null;
+    let promoDiscountRate = 0;
+    let promoLabel = '';
+
+    function formatRp(num) {
+        return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+    }
+
+    function selectVP(el, amount, price) {
+        document.querySelectorAll('.vp-card').forEach(c => {
+            c.style.borderColor = 'transparent';
+            c.style.boxShadow = 'none';
+            const check = c.querySelector('.vp-check');
+            if (check) check.classList.add('hidden');
+        });
+        el.style.borderColor = '#ff7f1c';
+        el.style.boxShadow = '0 0 18px rgba(255,127,28,0.35)';
+        const check = el.querySelector('.vp-check');
+        if (check) check.classList.remove('hidden');
+        selectedVP = { amount, price };
+        updateSummary();
+    }
+
+    function selectPayment(el, name) {
+        document.querySelectorAll('.payment-btn').forEach(b => {
+            b.style.borderColor = '#4c4452';
+            b.style.boxShadow = 'none';
+        });
+        el.style.borderColor = '#dbb8ff';
+        el.style.boxShadow = '0 0 14px rgba(219,184,255,0.35)';
+        selectedPayment = name;
+        updateSummary();
+    }
+
+    function applyPromo() {
+        const code = document.getElementById('promoInput').value.trim().toUpperCase();
+        const msg = document.getElementById('promoMsg');
+        msg.classList.remove('hidden');
+
+        if (code === '') {
+            promoDiscountRate = 0;
+            promoLabel = '';
+            msg.classList.add('hidden');
+        } else if (code === 'PLAYFUEL10') {
+            promoDiscountRate = 0.10;
+            promoLabel = 'PLAYFUEL10 (-10%)';
+            msg.textContent = 'Promo berhasil diterapkan! Diskon 10% untuk pesanan ini.';
+            msg.className = 'text-label-sm font-label-sm mt-stack-sm text-tertiary';
+        } else {
+            promoDiscountRate = 0;
+            promoLabel = '';
+            msg.textContent = 'Kode promo tidak valid atau sudah tidak berlaku.';
+            msg.className = 'text-label-sm font-label-sm mt-stack-sm text-error';
+        }
+        updateSummary();
+    }
+
+    function updateSummary() {
+        const riotId = document.getElementById('riotId').value.trim();
+        const riotTag = document.getElementById('riotTag').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const wa = document.getElementById('contactWA').value.trim();
+
+        document.getElementById('sum-riotid').textContent = riotId || '-';
+        document.getElementById('sum-tagline').textContent = riotTag || '-';
+        document.getElementById('sum-product').textContent = selectedVP ? selectedVP.amount.toLocaleString('id-ID') + ' VP' : '-';
+
+        const price = selectedVP ? selectedVP.price : 0;
+        document.getElementById('sum-price').textContent = formatRp(price);
+        document.getElementById('sum-payment').textContent = selectedPayment || '-';
+
+        const discountAmount = price * promoDiscountRate;
+        document.getElementById('sum-discount').textContent = discountAmount > 0
+            ? '- ' + formatRp(discountAmount) + ' (' + promoLabel + ')'
+            : 'Rp 0';
+
+        const total = price - discountAmount;
+        document.getElementById('sum-total').textContent = formatRp(total > 0 ? total : 0);
+
+        checkFormValid();
+    }
+
+    function checkFormValid() {
+        const riotId = document.getElementById('riotId').value.trim();
+        const riotTag = document.getElementById('riotTag').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const wa = document.getElementById('contactWA').value.trim();
+        const c1 = document.getElementById('agree1').checked;
+        const c2 = document.getElementById('agree2').checked;
+
+        const valid = !!(riotId && riotTag && selectedVP && selectedPayment && email && wa && c1 && c2);
+        const btn = document.getElementById('buyNowBtn');
+        btn.disabled = !valid;
+        btn.classList.toggle('opacity-40', !valid);
+        btn.classList.toggle('cursor-not-allowed', !valid);
+    }
+
+    function handleBuyNow() {
+        const btn = document.getElementById('buyNowBtn');
+        if (btn.disabled) return;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Memproses Pesanan...';
+        setTimeout(() => {
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Pesanan Berhasil Dibuat';
+            btn.classList.remove('bg-secondary-container');
+            btn.classList.add('bg-tertiary-container', 'text-tertiary');
+        }, 1600);
+    }
+</script>
+
+
+
+<!-- Beli Akun Tab Content (Hidden by default) -->
+<div class="tab-content hidden space-y-gutter" id="content-beli-akun">
+
+    <div id="account-list-view" class="space-y-gutter">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+            <div class="glass-card rounded-xl overflow-hidden group hover:border-primary/50 transition-all">
+                <img src="images/ValorantSkin1.jpg" class="w-full aspect-video object-cover group-hover:scale-105 transition-transform" alt="Valorant Skin">
+                <div class="p-gutter">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <p class="text-on-surface-variant text-label-sm">Rank</p>
+                            <p class="font-bold text-white">Gold 1</p>
+                        </div>
+                        <span class="font-bold text-secondary">Rp 350.000</span>
+                    </div>
+                    <button onclick="openAccountDetail()"
+                            class="w-full bg-primary text-on-primary py-3 rounded-lg font-bold hover:bg-primary-fixed transition-all">
+                        View Details
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="account-detail-view" class="hidden space-y-gutter">
+
+        <button onclick="closeAccountDetail()"
+                class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-all">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Back to Listings
+        </button>
+
+        <div class="glass-card rounded-xl overflow-hidden">
+            <img src="images/ValorantSkin1.jpg"
+                 class="w-full aspect-video object-cover"
+                 alt="Valorant Skin Preview">
+        </div>
+
+        <div class="glass-card rounded-xl p-stack-lg">
+            <h2 class="font-headline-md text-headline-md text-primary mb-gutter">
+                Account Information
+            </h2>
+
+            <div class="space-y-stack-md">
+                <div class="flex justify-between border-b border-white/5 pb-3">
+                    <span class="text-on-surface-variant">Rank</span>
+                    <span class="font-bold text-white">Gold 1</span>
+                </div>
+
+                <div class="flex justify-between border-b border-white/5 pb-3">
+                    <span class="text-on-surface-variant">Level</span>
+                    <span class="font-bold text-white">154</span>
+                </div>
+
+                <div class="flex justify-between border-b border-white/5 pb-3">
+                    <span class="text-on-surface-variant">Agents</span>
+                    <span class="font-bold text-white">All Agents Unlocked</span>
+                </div>
+
+                <div>
+                    <span class="text-on-surface-variant block mb-2">Description</span>
+                    <p class="text-on-surface-variant">
+                        Akun main pribadi dengan seluruh agent terbuka dan koleksi skin sesuai screenshot di atas.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-stack-lg flex flex-col md:flex-row md:items-center md:justify-between gap-gutter">
+            <div>
+                <p class="text-on-surface-variant">Price</p>
+                <p class="font-headline-md text-headline-md text-secondary font-bold">
+                    Rp 350.000
+                </p>
+            </div>
+
+            <button class="bg-secondary-container text-on-secondary-fixed px-10 py-4 rounded-xl font-bold hover:scale-[1.02] transition-all">
+                Buy Account
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Jual Akun Tab Content (Hidden by default) -->
+<div class="tab-content hidden" id="content-jual-akun">
+<div class="glass-card rounded-xl p-stack-lg space-y-gutter">
+<h2 class="font-headline-md text-headline-md text-primary">List Your Valorant Account</h2>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Account Name</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3" type="text"/>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Current Rank</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3">
+<option>Iron - Bronze</option>
+<option>Silver - Gold</option>
+<option>Platinum - Diamond</option>
+<option>Ascendant - Immortal</option>
+<option>Radiant</option>
+</select>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Level</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3" type="number"/>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Price (IDR)</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3" type="number"/>
+</div>
+<div class="md:col-span-2 space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Description / Skins List</label>
+<textarea class="w-full bg-surface-container-lowest border-outline-variant focus:border-secondary-container focus:ring-secondary-container rounded-lg px-4 py-3" rows="4"></textarea>
+</div>
+<div class="md:col-span-2">
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-stack-lg text-center hover:border-secondary-container transition-colors cursor-pointer bg-surface-container-lowest">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">upload_file</span>
+<p class="text-body-md text-on-surface-variant">Click to upload screenshots (Lobby, Collection, Rank)</p>
+<p class="text-label-sm text-on-surface-variant/50">Max size 5MB per image</p>
+</div>
+</div>
+<button class="md:col-span-2 bg-secondary-container text-on-secondary-fixed py-4 rounded-xl font-bold text-headline-md vibration-hover" type="submit">POST LISTING</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="max-w-[1200px] mx-auto px-container-margin pb-section-gap">
+<h2 class="font-display-lg text-display-lg mb-gutter text-center">Valorant FAQ</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="glass-card p-gutter rounded-xl">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">How long does top-up take?</h3>
+<p class="text-body-md text-on-surface-variant">Top-ups are usually processed within 1-5 minutes after payment verification. You will receive an email confirmation once the VP is added to your account.</p>
+</div>
+<div class="glass-card p-gutter rounded-xl">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Is buying accounts safe?</h3>
+<p class="text-body-md text-on-surface-variant">We offer 'Verified' listings where we have vetted the seller. All transactions on PlayFuel are protected by our secure escrow system until you confirm account delivery.</p>
+</div>
+<div class="glass-card p-gutter rounded-xl">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Can I sell my smurf account?</h3>
+<p class="text-body-md text-on-surface-variant">Yes! Smurf accounts are highly sought after. Make sure to provide clear screenshots of the rank and agent unlocks for a faster sale.</p>
+</div>
+<div class="glass-card p-gutter rounded-xl">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">What happens if there's a problem?</h3>
+<p class="text-body-md text-on-surface-variant">Our support team is available 24/7. If the seller does not provide the account details or the VP is not delivered, we offer a 100% refund policy.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant w-full pt-section-gap pb-stack-lg">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-[1200px] mx-auto px-container-margin text-center md:text-center items-center">
+
+        <div class="flex flex-col gap-stack-md items-center">
+            <div class="font-headline-md text-headline-md font-bold text-primary">
+                PlayFuel
+            </div>
+            <p class="text-on-surface-variant text-body-md">
+                Marketplace gaming terpercaya untuk semua kebutuhan digital gamer Indonesia.
+                Cepat, aman, dan transparan.
+            </p>
+        </div>
+
+        <div class="flex flex-col gap-stack-md items-center">
+            <h4 class="text-on-surface font-bold">Quick Links</h4>
+
+            <nav class="flex flex-col gap-2">
+                <a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm"
+                   href="index.html">
+                    Home
+                </a>
+
+                <a class="text-secondary font-bold transition-transform hover:translate-x-1 font-label-sm"
+                   href="Games.html">
+                    Games
+                </a>
+
+                <a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm"
+                   href="AboutUs.html">
+                    About Us
+                </a>
+
+                <a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm"
+                   href="Contact.html">
+                    Contact
+                </a>
+            </nav>
+        </div>
+
+        <div class="flex flex-col gap-stack-md items-center">
+            <h4 class="text-on-surface font-bold">Legal</h4>
+
+            <nav class="flex flex-col gap-2">
+                <a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm"
+                   href="#">
+                    Privacy Policy
+                </a>
+
+                <a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm"
+                   href="#">
+                    Terms of Service
+                </a>
+
+                <a class="text-on-surface-variant hover:text-primary transition-transform hover:translate-x-1 font-label-sm"
+                   href="#">
+                    Refund Policy
+                </a>
+            </nav>
+        </div>
+
+    </div>
+
+    <div class="max-w-[1200px] mx-auto px-container-margin mt-stack-lg pt-stack-lg border-t border-white/5 text-center text-on-surface-variant font-label-sm">
+        © 2026 PlayFuel. All rights reserved.
+    </div>
+</footer>
+<script>
+        function switchTab(tabId) {
+            // Update Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-secondary-container', 'text-on-secondary-fixed');
+                btn.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+            });
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+            activeBtn.classList.add('bg-secondary-container', 'text-on-secondary-fixed');
+
+            // Update Content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+        }
+
+        // Add subtle hover tracking for glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+<div class="custom-scrollbar">
+    <div class="custom-thumb" id="customThumb"></div>
+</div>
+<script>
+const thumb = document.getElementById('customThumb');
+let isDragging = false;
+let startY = 0;
+let startTop = 0;
+
+function updateScrollbar() {
+    if (isDragging) return;
+
+    const scrollTop = window.scrollY;
+    const docHeight =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    const trackHeight =
+        window.innerHeight -
+        thumb.offsetHeight;
+
+    const thumbTop =
+        docHeight > 0
+            ? (scrollTop / docHeight) * trackHeight
+            : 0;
+
+    thumb.style.top = `${thumbTop}px`;
+}
+
+thumb.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    startTop = thumb.offsetTop;
+    e.preventDefault();
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const trackHeight =
+        window.innerHeight -
+        thumb.offsetHeight;
+
+    let thumbTop =
+        startTop +
+        (e.clientY - startY);
+
+    thumbTop = Math.max(
+        0,
+        Math.min(trackHeight, thumbTop)
+    );
+
+    thumb.style.top = `${thumbTop}px`;
+
+    const docHeight =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    window.scrollTo(
+        0,
+        (thumbTop / trackHeight) * docHeight
+    );
+});
+
+window.addEventListener('scroll', updateScrollbar);
+window.addEventListener('resize', updateScrollbar);
+
+updateScrollbar();
+</script>
+
+<script>
+function openAccountDetail() {
+    document.getElementById('account-list-view').classList.add('hidden');
+    document.getElementById('account-detail-view').classList.remove('hidden');
+}
+
+function closeAccountDetail() {
+    document.getElementById('account-detail-view').classList.add('hidden');
+    document.getElementById('account-list-view').classList.remove('hidden');
+}
+</script>
+</body>
+</html>
